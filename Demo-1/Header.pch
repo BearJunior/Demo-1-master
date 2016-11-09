@@ -1,0 +1,18 @@
+//
+//  Header.pch
+//  Demo-1
+//
+//  Created by admin on 16/10/13.
+//  Copyright © 2016年 admin. All rights reserved.
+//
+
+#ifndef Header_pch
+#define Header_pch
+//自动适配宽度,width为原始iphone4/5的宽度
+#define AUTO_MATE_WIDTH(width) ((width) * kMainWidth / 320.0)
+//自动适配宽度,width为原始iphone4/5的高度
+#define AUTO_MATE_HEIGHT(height) ((height) * kMainHeight / 568.0)
+#define kMainWidth    [[UIScreen mainScreen] bounds].size.width
+#define kMainHeight   [[UIScreen mainScreen] bounds].size.height
+
+#endif /* Header_pch */
