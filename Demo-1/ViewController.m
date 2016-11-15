@@ -11,9 +11,9 @@
 #import "ProportionCutView.h"
 #import "CurveToneView.h"
 #import "GraffitiView.h"
-#import "UIImage+Mask.h"
 
-@interface ViewController ()
+
+@interface ViewController ()<UIAlertViewDelegate>
 {
     //记录放大比例
     float _proportion;
@@ -57,6 +57,9 @@
         [self.view addSubview:button];
     }
     
+    float padding = 10;
+    float btnWidth = (kMainWidth - padding * 5) / 4;
+    
     UIButton *resetBtn = [UIButton new];
     [self.view addSubview:resetBtn];
     resetBtn.layer.cornerRadius = 5.0f;
@@ -64,10 +67,11 @@
     [resetBtn setTitle:@"Reset" forState:0];
     [resetBtn setBackgroundColor:[UIColor grayColor]];
     [resetBtn setTitleColor:[UIColor blackColor] forState:0];
-    resetBtn.frame = CGRectMake(20, AUTO_MATE_HEIGHT(30), AUTO_MATE_WIDTH(80), 40);
+    resetBtn.frame = CGRectMake(padding, AUTO_MATE_HEIGHT(30), btnWidth, 40);
     [resetBtn addTarget:self action:@selector(resetBtnAction) forControlEvents:UIControlEventTouchUpInside];
     resetBtn.enabled = NO;
     
+    //截图按钮
     UIButton *clipBtn = [UIButton new];
     [self.view addSubview:clipBtn];
     clipBtn.tag = 1001;
@@ -75,11 +79,37 @@
     [clipBtn setTitle:@"clip" forState:0];
     [clipBtn setBackgroundColor:[UIColor grayColor]];
     [clipBtn setTitleColor:[UIColor blackColor] forState:0];
-    clipBtn.frame = CGRectMake(kMainWidth - AUTO_MATE_WIDTH(80) - 20, AUTO_MATE_HEIGHT(30), AUTO_MATE_WIDTH(80), 40);
+    clipBtn.frame = CGRectMake((padding + btnWidth) * 3 + padding, AUTO_MATE_HEIGHT(30), btnWidth, 40);
     clipBtn.enabled = NO;
     [clipBtn addTarget:self action:@selector(clipBtnAction:) forControlEvents:UIControlEventTouchUpInside];
     
+    //选取相册按钮
+    UIButton *choosePhoto = [UIButton new];
+    [self.view addSubview:choosePhoto];
+    choosePhoto.frame = CGRectMake(padding * 2 + btnWidth, AUTO_MATE_HEIGHT(30), btnWidth, 40);
+    [choosePhoto setTitle:@"Choose" forState:0];
+    [choosePhoto addTarget:self action:@selector(chooseBtn:) forControlEvents:UIControlEventTouchUpInside];
+    choosePhoto.tag = 1003;
+    choosePhoto.layer.cornerRadius = 5.0f;
+    [choosePhoto setBackgroundColor:[UIColor grayColor]];
+    [choosePhoto setTitleColor:[UIColor cyanColor] forState:0];
+    
+    //保存
+    UIButton *saveBtn = [UIButton new];
+    [self.view addSubview:saveBtn];
+    saveBtn.frame = CGRectMake((padding + btnWidth) * 2 + padding, AUTO_MATE_HEIGHT(30), btnWidth, 40);
+    [saveBtn setTitle:@"save" forState:0];
+    saveBtn.layer.cornerRadius = 5.0f;
+    saveBtn.tag = 1004;
+    saveBtn.enabled = NO;
+    [saveBtn setBackgroundColor:[UIColor grayColor]];
+    [saveBtn setTitleColor:[UIColor blackColor] forState:0];
+    [saveBtn addTarget:self action:@selector(saveBtnAction:) forControlEvents:UIControlEventTouchUpInside];
+    
+    
     self.imageView.userInteractionEnabled = YES;
+    
+    
 }
 
 #pragma mark - 懒加载
@@ -230,12 +260,21 @@
     UIButton *button = [self.view viewWithTag:1002];
     [button setTitleColor:[UIColor cyanColor] forState:0];
     button.enabled = YES;
+    
+    UIButton *save = [self.view viewWithTag:1004];
+    [save setTitleColor:[UIColor cyanColor] forState:0];
+    save.enabled = YES;
+    
 }
 - (void)enableReset
 {
     UIButton *button = [self.view viewWithTag:1002];
     [button setTitleColor:[UIColor blackColor] forState:0];
     button.enabled = NO;
+    
+    UIButton *save = [self.view viewWithTag:1004];
+    [save setTitleColor:[UIColor blackColor] forState:0];
+    save.enabled = NO;
 }
 
 
@@ -413,6 +452,30 @@
     
 }
 
+#pragma mark - 保存进相册
+- (void)saveBtnAction:(UIButton *)sender
+{
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"是否保存截图" message:nil preferredStyle:UIAlertControllerStyleAlert];
+    UIAlertAction *action = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:nil];
+    UIAlertAction *save = [UIAlertAction actionWithTitle:@"保存" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        UIImageWriteToSavedPhotosAlbum(self.imageView.image, self, nil, nil);
+    }];
+    [alertController addAction:action];
+    [alertController addAction:save];
+    
+    [self presentViewController:alertController animated:YES completion:nil];
+    
+}
+
+#pragma mark - 选择图片
+- (void)chooseBtn:(UIButton *)sender
+{
+    __weak typeof(self) weakSelf = self;
+    [SelectPhotosTool showAtController:weakSelf backImage:^(UIImage *image) {
+        [weakSelf setImgWithImage:image];
+        [weakSelf resetBtnAction];
+    }];
+}
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

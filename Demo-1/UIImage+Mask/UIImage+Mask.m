@@ -210,6 +210,7 @@ static unsigned char *RequestImagePixelData(UIImage *inImage)
     
     /// Image mask
     CGImageRef cgMaskImage = maskImage.CGImage;
+    
     CGImageRef mask = CGImageMaskCreate((size_t)maskImage.size.width, (size_t)maskImage.size.height, CGImageGetBitsPerComponent(cgMaskImage), CGImageGetBitsPerPixel(cgMaskImage), CGImageGetBytesPerRow(cgMaskImage), CGImageGetDataProvider(cgMaskImage), NULL, false);
     
     /// Draw the original image in the bitmap context

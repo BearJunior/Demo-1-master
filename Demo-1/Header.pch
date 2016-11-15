@@ -15,4 +15,7 @@
 #define kMainWidth    [[UIScreen mainScreen] bounds].size.width
 #define kMainHeight   [[UIScreen mainScreen] bounds].size.height
 
+
+#import "SelectPhotosTool.h"
+#import "UIImage+Mask.h"
 #endif /* Header_pch */
