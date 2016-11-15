@@ -11,6 +11,7 @@ typedef enum {
     CutImgfourType,
     CutImgSixteenType,
     CureToneType,
+    GraffitiType,
 }CutImgType;
 
 

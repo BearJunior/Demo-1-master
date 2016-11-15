@@ -21,6 +21,9 @@
 		8478D0551DAB7B300057EE0A /* Demo_1UITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 8478D0541DAB7B300057EE0A /* Demo_1UITests.m */; };
 		84F91F1B1DB9B1D8002995D4 /* CurveToneView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F91F1A1DB9B1D8002995D4 /* CurveToneView.m */; };
 		84F91F9F1DBA1FD3002995D4 /* Slide.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F91F9E1DBA1FD3002995D4 /* Slide.m */; };
+		84F9A0091DDABAE7001A040B /* GraffitiView.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9A0081DDABAE7001A040B /* GraffitiView.m */; };
+		84F9A00C1DDABAFD001A040B /* LineModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9A00B1DDABAFD001A040B /* LineModel.m */; };
+		84F9A0101DDAE55B001A040B /* UIImage+Mask.m in Sources */ = {isa = PBXBuildFile; fileRef = 84F9A00F1DDAE55B001A040B /* UIImage+Mask.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +71,12 @@
 		84F91F1A1DB9B1D8002995D4 /* CurveToneView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CurveToneView.m; sourceTree = "<group>"; };
 		84F91F9D1DBA1FD3002995D4 /* Slide.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Slide.h; sourceTree = "<group>"; };
 		84F91F9E1DBA1FD3002995D4 /* Slide.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Slide.m; sourceTree = "<group>"; };
+		84F9A0071DDABAE7001A040B /* GraffitiView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GraffitiView.h; sourceTree = "<group>"; };
+		84F9A0081DDABAE7001A040B /* GraffitiView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GraffitiView.m; sourceTree = "<group>"; };
+		84F9A00A1DDABAFD001A040B /* LineModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LineModel.h; sourceTree = "<group>"; };
+		84F9A00B1DDABAFD001A040B /* LineModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LineModel.m; sourceTree = "<group>"; };
+		84F9A00E1DDAE55B001A040B /* UIImage+Mask.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Mask.h"; sourceTree = "<group>"; };
+		84F9A00F1DDAE55B001A040B /* UIImage+Mask.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Mask.m"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -118,6 +127,7 @@
 		8478D02E1DAB7B300057EE0A /* Demo-1 */ = {
 			isa = PBXGroup;
 			children = (
+				84F9A00D1DDAE55B001A040B /* UIImage+Mask */,
 				841806061DAF804200B98CA1 /* bg2.jpg */,
 				841806081DAF8E7200B98CA1 /* clipCorner1.png */,
 				8478D0321DAB7B300057EE0A /* AppDelegate.h */,
@@ -132,6 +142,10 @@
 				84F91F1A1DB9B1D8002995D4 /* CurveToneView.m */,
 				84F91F9D1DBA1FD3002995D4 /* Slide.h */,
 				84F91F9E1DBA1FD3002995D4 /* Slide.m */,
+				84F9A0071DDABAE7001A040B /* GraffitiView.h */,
+				84F9A0081DDABAE7001A040B /* GraffitiView.m */,
+				84F9A00A1DDABAFD001A040B /* LineModel.h */,
+				84F9A00B1DDABAFD001A040B /* LineModel.m */,
 				840CA8FE1DAF66A400E9CB35 /* Header.pch */,
 				8478D0381DAB7B300057EE0A /* Main.storyboard */,
 				8478D03B1DAB7B300057EE0A /* Assets.xcassets */,
@@ -166,6 +180,15 @@
 				8478D0561DAB7B300057EE0A /* Info.plist */,
 			);
 			path = "Demo-1UITests";
+			sourceTree = "<group>";
+		};
+		84F9A00D1DDAE55B001A040B /* UIImage+Mask */ = {
+			isa = PBXGroup;
+			children = (
+				84F9A00E1DDAE55B001A040B /* UIImage+Mask.h */,
+				84F9A00F1DDAE55B001A040B /* UIImage+Mask.m */,
+			);
+			path = "UIImage+Mask";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -300,11 +323,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				84F9A00C1DDABAFD001A040B /* LineModel.m in Sources */,
+				84F9A0091DDABAE7001A040B /* GraffitiView.m in Sources */,
 				84F91F9F1DBA1FD3002995D4 /* Slide.m in Sources */,
 				84F91F1B1DB9B1D8002995D4 /* CurveToneView.m in Sources */,
 				8478D0371DAB7B300057EE0A /* ViewController.m in Sources */,
 				8478D0341DAB7B300057EE0A /* AppDelegate.m in Sources */,
 				841806021DAF6EBD00B98CA1 /* DrawView.m in Sources */,
+				84F9A0101DDAE55B001A040B /* UIImage+Mask.m in Sources */,
 				841806051DAF780700B98CA1 /* ProportionCutView.m in Sources */,
 				8478D0311DAB7B300057EE0A /* main.m in Sources */,
 			);

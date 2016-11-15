@@ -10,6 +10,8 @@
 #import "DrawView.h"
 #import "ProportionCutView.h"
 #import "CurveToneView.h"
+#import "GraffitiView.h"
+#import "UIImage+Mask.h"
 
 @interface ViewController ()
 {
@@ -21,6 +23,7 @@
 @property (nonatomic, strong) DrawView *drawView;
 @property (nonatomic, strong) ProportionCutView *proportionCutView;
 @property (nonatomic, strong) CurveToneView *curveToneView;
+@property (nonatomic, strong) GraffitiView *graffitiView;
 
 @end
 
@@ -40,8 +43,8 @@
     self.view.backgroundColor = [UIColor blackColor];
     [self.view addSubview:self.imageView];
     
-    NSArray *titles = @[@"手势截图",@"任意",@"16:9",@"曲线"];
-    float width = (kMainWidth - 3)/4;
+    NSArray *titles = @[@"手势截图",@"任意",@"16:9",@"曲线",@"涂鸦"];
+    float width = (kMainWidth - titles.count + 2)/titles.count;
     float height = 50;
     float y = kMainHeight - height;
     for (NSInteger i = 0; i < titles.count; i ++) {
@@ -110,6 +113,14 @@
     return _curveToneView;
 }
 
+- (GraffitiView *)graffitiView
+{
+    if (!_graffitiView) {
+        _graffitiView = [[GraffitiView alloc]initWithFrame:self.imageView.frame];
+    }
+    return _graffitiView;
+}
+
 #pragma mark - 截图类型点击事件
 - (void)buttonPressed:(UIButton *)sender
 {
@@ -158,6 +169,12 @@
             [self.curveToneView curveBtnPressed];
         }
             break;
+        case 104:
+        {
+            _cutImgType = GraffitiType;
+            [self.view addSubview:self.graffitiView];
+            [self.graffitiView prepareUI];
+        }
         default:
             break;
     }
@@ -170,7 +187,7 @@
         [self enableButton];
     }
     
-    for (NSInteger i = 0; i < 4; i ++) {
+    for (NSInteger i = 0; i < 5; i ++) {
         UIButton *button = [self.view viewWithTag:100 + i];
         [button setBackgroundColor:[UIColor grayColor]];
         [button setTitleColor:[UIColor whiteColor] forState:0];
@@ -225,7 +242,7 @@
 #pragma mark - 还原按钮点击事件
 - (void)resetBtnAction
 {
-    for (NSInteger i = 0; i < 4; i ++) {
+    for (NSInteger i = 0; i < 5; i ++) {
         UIButton *button = [self.view viewWithTag:100 + i];
         [button setBackgroundColor:[UIColor grayColor]];
         [button setTitleColor:[UIColor whiteColor] forState:0];
@@ -243,6 +260,12 @@
     }
     
     [self.proportionCutView removeFromSuperview];
+    
+    if (_graffitiView) {
+        [self.graffitiView removeFromSuperview];
+        self.graffitiView = nil;
+    }
+    
     self.imageView.image = self.image;
     self.cutImgType = 100;
     [self enableReset];
@@ -262,14 +285,13 @@
         }
             break;
         case CutImgfourType:
-        {
             [self proportionCutImg];
-        }
             break;
         case CutImgSixteenType:
-        {
             [self proportionCutImg];
-        }
+            break;
+        case GraffitiType:
+            [self graffitiCutImg];
             break;
         default:
             break;
@@ -368,6 +390,21 @@
     [self.imageView setImage:destImg];
     
 }
+
+#pragma mark - 涂鸦截图
+- (void)graffitiCutImg
+{
+    UIGraphicsBeginImageContextWithOptions(self.imageView.frame.size, NO, 0);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    [self.graffitiView.layer renderInContext:context];
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    UIImage *newImage = [self.imageView.image maskWithImage:image];
+    self.imageView.image = newImage;
+    [self.graffitiView.paths removeAllObjects];
+    [self.graffitiView setNeedsDisplay];
+}
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
