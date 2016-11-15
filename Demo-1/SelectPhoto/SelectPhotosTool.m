@@ -97,11 +97,9 @@
     
     if ([_controller isKindOfClass:[UIViewController class]] ) {
         
-        pickerContoller.popoverPresentationController.sourceView = _controller.view;
-        pickerContoller.popoverPresentationController.permittedArrowDirections  =UIPopoverArrowDirectionDown;
-//        [_controller presentViewController:pickerContoller animated:YES completion:^{
-//            NSLog(@"跳转成功");
-//        }];
+        [_controller presentViewController:pickerContoller animated:YES completion:^{
+            NSLog(@"跳转成功");
+        }];
     }
     
 }
