@@ -409,6 +409,7 @@
     transition.type = kCATransitionFade;
     [self.imageView.layer addAnimation:transition forKey:@"a"];
     [self.imageView setImage:newImage];
+    self.graffitiView.userInteractionEnabled = NO;
     
 }
 
