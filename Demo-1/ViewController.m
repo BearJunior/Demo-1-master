@@ -400,9 +400,16 @@
     UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
     UIGraphicsEndImageContext();
     UIImage *newImage = [self.imageView.image maskWithImage:image];
-    self.imageView.image = newImage;
     [self.graffitiView.paths removeAllObjects];
     [self.graffitiView setNeedsDisplay];
+    
+    CATransition *transition = [CATransition animation];
+    transition.duration = 1;
+    transition.timingFunction = [CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseOut];
+    transition.type = kCATransitionFade;
+    [self.imageView.layer addAnimation:transition forKey:@"a"];
+    [self.imageView setImage:newImage];
+    
 }
 
 
