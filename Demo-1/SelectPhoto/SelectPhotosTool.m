@@ -33,7 +33,7 @@
     actionSheet.actionSheetStyle = UIActionSheetStyleBlackTranslucent;
     
     photoTools.controller = controller;
-    
+
     //设置活动卡显示在哪一个view上
     [actionSheet showInView:controller.view];
     photoTools.imageBlock = imageBlock;
@@ -97,7 +97,11 @@
     
     if ([_controller isKindOfClass:[UIViewController class]] ) {
         
-        [_controller presentViewController:pickerContoller animated:YES completion:nil];
+        pickerContoller.popoverPresentationController.sourceView = _controller.view;
+        pickerContoller.popoverPresentationController.permittedArrowDirections  =UIPopoverArrowDirectionDown;
+//        [_controller presentViewController:pickerContoller animated:YES completion:^{
+//            NSLog(@"跳转成功");
+//        }];
     }
     
 }
